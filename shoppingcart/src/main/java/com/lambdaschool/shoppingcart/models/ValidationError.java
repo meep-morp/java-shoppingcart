@@ -3,8 +3,7 @@ package com.lambdaschool.shoppingcart.models;
 /**
  * A model to report a validation error
  */
-public class ValidationError
-{
+public class ValidationError {
     /**
      * The code (String) for the validation error
      */
@@ -20,8 +19,7 @@ public class ValidationError
      *
      * @return the code (String) for this validation error
      */
-    public String getCode()
-    {
+    public String getCode() {
         return Code;
     }
 
@@ -30,8 +28,7 @@ public class ValidationError
      *
      * @param code the new code (String) for this validation error
      */
-    public void setCode(String code)
-    {
+    public void setCode(String code) {
         Code = code;
     }
 
@@ -40,8 +37,7 @@ public class ValidationError
      *
      * @return The message (String) associated with this validation error
      */
-    public String getMessage()
-    {
+    public String getMessage() {
         return message;
     }
 
@@ -50,8 +46,7 @@ public class ValidationError
      *
      * @param message The new message (String) associated with this validation error
      */
-    public void setMessage(String message)
-    {
+    public void setMessage(String message) {
         this.message = message;
     }
 
@@ -61,8 +56,7 @@ public class ValidationError
      * @return The current validation error as a String
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "ValidationError{" + "Code='" + Code + '\'' + ", message='" + message + '\'' + '}';
     }
 }

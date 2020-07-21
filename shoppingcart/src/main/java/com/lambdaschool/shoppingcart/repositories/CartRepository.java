@@ -13,8 +13,7 @@ import java.util.List;
  * The CRUD repository connecting Cart to the rest of the application
  */
 public interface CartRepository
-        extends CrudRepository<Cart, Long>
-{
+        extends CrudRepository<Cart, Long> {
     List<Cart> findAllByUser_Userid(long id);
 
     @Query(value = "SELECT COUNT(*) as count FROM cartitems WHERE cartid = :cartid AND productid = :productid", nativeQuery = true)

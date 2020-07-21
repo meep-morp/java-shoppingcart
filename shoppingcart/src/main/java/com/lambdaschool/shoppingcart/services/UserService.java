@@ -7,8 +7,7 @@ import java.util.List;
 /**
  * The Service that works with User Model.
  */
-public interface UserService
-{
+public interface UserService {
     /**
      * Returns a list of all the Users
      *
@@ -23,6 +22,8 @@ public interface UserService
      * @return The given User or throws an exception if not found.
      */
     User findUserById(long id);
+
+    User findByUserName(String name);
 
     /**
      * Deletes the user record from the database based off of the provided primary key

@@ -10,8 +10,7 @@ import java.util.List;
  * The Service that works with Cart Model.
  */
 
-public interface CartService
-{
+public interface CartService {
     // find all carts for a user
     // find cart by id
     // user adds Cart without cart create new cart

@@ -2,15 +2,7 @@ package com.lambdaschool.shoppingcart.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +10,7 @@ import java.util.List;
 @Table(name = "products")
 @JsonIgnoreProperties(value = "hasprice")
 public class Product
-        extends Auditable
-{
+        extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long productid;
@@ -41,69 +32,56 @@ public class Product
             allowSetters = true)
     private List<CartItem> carts = new ArrayList<>();
 
-    public Product()
-    {
+    public Product() {
 
     }
 
-    public long getProductid()
-    {
+    public long getProductid() {
         return productid;
     }
 
-    public void setProductid(long productid)
-    {
+    public void setProductid(long productid) {
         this.productid = productid;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public double getPrice()
-    {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(double price)
-    {
+    public void setPrice(double price) {
         hasprice = true;
         this.price = price;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getComments()
-    {
+    public String getComments() {
         return comments;
     }
 
-    public void setComments(String comments)
-    {
+    public void setComments(String comments) {
         this.comments = comments;
     }
 
-    public List<CartItem> getCarts()
-    {
+    public List<CartItem> getCarts() {
         return carts;
     }
 
-    public void setCarts(List<CartItem> carts)
-    {
+    public void setCarts(List<CartItem> carts) {
         this.carts = carts;
     }
 }

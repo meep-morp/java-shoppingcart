@@ -14,8 +14,7 @@ import java.util.List;
 
 @Service(value = "productService")
 public class ProductServiceImpl
-        implements ProductService
-{
+        implements ProductService {
     /**
      * Connects this service to the product repository
      */
@@ -32,8 +31,7 @@ public class ProductServiceImpl
     private UserAuditing userAuditing;
 
     @Override
-    public List<Product> findAll()
-    {
+    public List<Product> findAll() {
         List<Product> list = new ArrayList<>();
         /*
          * findAll returns an iterator set.
@@ -46,16 +44,14 @@ public class ProductServiceImpl
     }
 
     @Override
-    public Product findProductById(long id)
-    {
+    public Product findProductById(long id) {
         return productrepos.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product id " + id + " not found!"));
     }
 
     @Transactional
     @Override
-    public void delete(long id)
-    {
+    public void delete(long id) {
         productrepos.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product id " + id + " not found!"));
         productrepos.deleteById(id);
@@ -64,14 +60,11 @@ public class ProductServiceImpl
 
     @Transactional
     @Override
-    public Product save(Product product)
-    {
+    public Product save(Product product) {
         if (product.getCarts()
-                .size() > 0)
-        {
+                .size() > 0) {
             throw new ResourceFoundException("Carts are not updated through Products");
         }
-        ;
 
         return productrepos.save(product);
     }
@@ -79,44 +72,38 @@ public class ProductServiceImpl
     @Transactional
     @Override
     public Product update(long id,
-                          Product product)
-    {
+                          Product product) {
         if (product.getCarts()
-                .size() > 0)
-        {
+                .size() > 0) {
             throw new ResourceFoundException("Carts cannot be updated through this process");
         }
 
         Product currentProduct = productrepos.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product id " + id + " not found!"));
 
-        if (product.getName() != null)
-        {
+        if (product.getName() != null) {
             currentProduct.setName(product.getName());
         }
 
-        if (product.hasprice)
-        {
+        if (product.hasprice) {
             currentProduct.setPrice(product.getPrice());
         }
 
-        if (product.getDescription() != null)
-        {
+        if (product.getDescription() != null) {
             currentProduct.setDescription(product.getDescription());
         }
 
-        if (product.getComments() != null)
-        {
+        if (product.getComments() != null) {
             currentProduct.setComments(product.getComments());
         }
 
         productrepos.updateProductInformation(userAuditing.getCurrentAuditor()
-                                                      .get(),
-                                              id,
-                                              currentProduct.getName(),
-                                              currentProduct.getPrice(),
-                                              currentProduct.getDescription(),
-                                              currentProduct.getComments());
+                        .get(),
+                id,
+                currentProduct.getName(),
+                currentProduct.getPrice(),
+                currentProduct.getDescription(),
+                currentProduct.getComments());
         return findProductById(id);
     }
 }

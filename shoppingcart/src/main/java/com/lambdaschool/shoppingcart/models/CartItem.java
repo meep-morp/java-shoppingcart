@@ -2,11 +2,7 @@ package com.lambdaschool.shoppingcart.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -14,8 +10,7 @@ import java.util.Objects;
 @Table(name = "cartitems")
 public class CartItem
         extends Auditable
-        implements Serializable
-{
+        implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "cartid")
@@ -31,60 +26,48 @@ public class CartItem
     private long quantity;
     private String comments;
 
-    public CartItem()
-    {
+    public CartItem() {
 
     }
 
-    public Cart getCart()
-    {
+    public Cart getCart() {
         return cart;
     }
 
-    public void setCart(Cart cart)
-    {
+    public void setCart(Cart cart) {
         this.cart = cart;
     }
 
-    public Product getProduct()
-    {
+    public Product getProduct() {
         return product;
     }
 
-    public void setProduct(Product product)
-    {
+    public void setProduct(Product product) {
         this.product = product;
     }
 
-    public long getQuantity()
-    {
+    public long getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(long quantity)
-    {
+    public void setQuantity(long quantity) {
         this.quantity = quantity;
     }
 
-    public String getComments()
-    {
+    public String getComments() {
         return comments;
     }
 
-    public void setComments(String comments)
-    {
+    public void setComments(String comments) {
         this.comments = comments;
     }
 
     @Override
-    public boolean equals(Object o)
-    {
-        if (this == o)
-        {
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass())
-        {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
         CartItem cart_item = (CartItem) o;
@@ -92,15 +75,14 @@ public class CartItem
                 cart.equals(cart_item.cart) &&
                 product.equals(cart_item.product) &&
                 Objects.equals(comments,
-                               cart_item.comments);
+                        cart_item.comments);
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return Objects.hash(cart,
-                            product,
-                            quantity,
-                            comments);
+                product,
+                quantity,
+                comments);
     }
 }

@@ -7,8 +7,7 @@ import java.util.List;
 /**
  * A class used to display error messages in our own chosen format
  */
-public class ErrorDetail
-{
+public class ErrorDetail {
     /**
      * The title (String) of the error message
      */
@@ -43,8 +42,7 @@ public class ErrorDetail
     /**
      * Default constructor for this class
      */
-    public ErrorDetail()
-    {
+    public ErrorDetail() {
     }
 
     /**
@@ -52,8 +50,7 @@ public class ErrorDetail
      *
      * @return Title (String) of this error
      */
-    public String getTitle()
-    {
+    public String getTitle() {
         return title;
     }
 
@@ -62,8 +59,7 @@ public class ErrorDetail
      *
      * @param title the new title (String) for this error
      */
-    public void setTitle(String title)
-    {
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -72,8 +68,7 @@ public class ErrorDetail
      *
      * @return the Http Status code (int) for this error
      */
-    public int getStatus()
-    {
+    public int getStatus() {
         return status;
     }
 
@@ -82,8 +77,7 @@ public class ErrorDetail
      *
      * @param status The new Http Status code (int) for this error
      */
-    public void setStatus(int status)
-    {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -92,8 +86,7 @@ public class ErrorDetail
      *
      * @return A detailed message (String) about this error suitable for regular users, clients
      */
-    public String getDetail()
-    {
+    public String getDetail() {
         return detail;
     }
 
@@ -102,8 +95,7 @@ public class ErrorDetail
      *
      * @param detail The new detailed message (String) about this error suitable for regular users, clients
      */
-    public void setDetail(String detail)
-    {
+    public void setDetail(String detail) {
         this.detail = detail;
     }
 
@@ -112,8 +104,7 @@ public class ErrorDetail
      *
      * @return The data and time (date) when this error happened
      */
-    public Date getTimestamp()
-    {
+    public Date getTimestamp() {
         return timestamp;
     }
 
@@ -122,8 +113,7 @@ public class ErrorDetail
      *
      * @param timestamp the changed data and time (date) when this error happened
      */
-    public void setTimestamp(Date timestamp)
-    {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -132,8 +122,7 @@ public class ErrorDetail
      *
      * @return A message for developers about this error message (String), things like class and code causing the error.
      */
-    public String getDeveloperMessage()
-    {
+    public String getDeveloperMessage() {
         return developerMessage;
     }
 
@@ -142,8 +131,7 @@ public class ErrorDetail
      *
      * @param developerMessage The new message for developers about this error message (String), things like class and code causing the error.
      */
-    public void setDeveloperMessage(String developerMessage)
-    {
+    public void setDeveloperMessage(String developerMessage) {
         this.developerMessage = developerMessage;
     }
 
@@ -152,8 +140,7 @@ public class ErrorDetail
      *
      * @return The list of validation errors, if any, for this error
      */
-    public List<ValidationError> getErrors()
-    {
+    public List<ValidationError> getErrors() {
         return errors;
     }
 
@@ -162,8 +149,7 @@ public class ErrorDetail
      *
      * @param errors The new list of validation errors, if any, for this error
      */
-    public void setErrors(List<ValidationError> errors)
-    {
+    public void setErrors(List<ValidationError> errors) {
         this.errors = errors;
     }
 }

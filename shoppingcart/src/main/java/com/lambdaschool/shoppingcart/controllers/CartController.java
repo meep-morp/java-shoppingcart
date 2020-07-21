@@ -7,26 +7,18 @@ import com.lambdaschool.shoppingcart.services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/carts")
-public class CartController
-{
+public class CartController {
     @Autowired
     private CartService cartService;
 
     @GetMapping(value = "/user/{userid}", produces = {"application/json"})
-    public ResponseEntity<?> listAllCarts(@PathVariable long userid)
-    {
+    public ResponseEntity<?> listAllCarts(@PathVariable long userid) {
         List<Cart> myCarts = cartService.findAllByUserId(userid);
         return new ResponseEntity<>(myCarts, HttpStatus.OK);
     }
@@ -35,17 +27,15 @@ public class CartController
             produces = {"application/json"})
     public ResponseEntity<?> getCartById(
             @PathVariable
-                    Long cartId)
-    {
+                    Long cartId) {
         Cart p = cartService.findCartById(cartId);
         return new ResponseEntity<>(p,
-                                    HttpStatus.OK);
+                HttpStatus.OK);
     }
 
     @PostMapping(value = "/create/user/{userid}/product/{productid}")
     public ResponseEntity<?> addNewCart(@PathVariable long userid,
-                                        @PathVariable long productid)
-    {
+                                        @PathVariable long productid) {
         User dataUser = new User();
         dataUser.setUserid(userid);
 
@@ -58,8 +48,7 @@ public class CartController
 
     @PutMapping(value = "/update/cart/{cartid}/product/{productid}")
     public ResponseEntity<?> updateCart(@PathVariable long cartid,
-                                        @PathVariable long productid)
-    {
+                                        @PathVariable long productid) {
         Cart dataCart = new Cart();
         dataCart.setCartid(cartid);
 
@@ -72,8 +61,7 @@ public class CartController
 
     @DeleteMapping(value = "/delete/cart/{cartid}/product/{productid}")
     public ResponseEntity<?> deleteFromCart(@PathVariable long cartid,
-                                            @PathVariable long productid)
-    {
+                                            @PathVariable long productid) {
         Cart dataCart = new Cart();
         dataCart.setCartid(cartid);
 

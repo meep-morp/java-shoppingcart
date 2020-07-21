@@ -7,8 +7,7 @@ import java.util.List;
 /**
  * The Service that works with Product Model.
  */
-public interface ProductService
-{
+public interface ProductService {
     /**
      * Returns a list of all the Products
      *
