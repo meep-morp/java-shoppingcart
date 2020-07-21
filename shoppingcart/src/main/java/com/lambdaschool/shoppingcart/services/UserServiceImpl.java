@@ -24,6 +24,9 @@ public class UserServiceImpl
     @Autowired
     private CartService cartService;
 
+    @Autowired
+    HelperFunctions helperFunctions;
+
     @Override
     public List<User> findAll() {
         List<User> list = new ArrayList<>();
@@ -46,6 +49,11 @@ public class UserServiceImpl
     @Override
     public User findByUserName(String name) {
         return userrepos.findByUsername(name);
+    }
+
+    @Override
+    public User getCurrentUserInfo() {
+       return userrepos.findByUsername(helperFunctions.getCurrentAuditor());
     }
 
     @Transactional

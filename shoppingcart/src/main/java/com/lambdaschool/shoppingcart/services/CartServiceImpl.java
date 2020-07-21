@@ -70,10 +70,6 @@ public class CartServiceImpl
         Product dbproduct = productrepos.findById(product.getProductid())
                 .orElseThrow(() -> new ResourceNotFoundException("Product id " + product.getProductid() + " not found"));
 
-        String currentAuditor = userAuditing.getCurrentAuditor()
-                .orElseThrow(() -> new EntityNotFoundException(String.format("%s not found", userAuditing.getCurrentAuditor())));
-
-        if (currentAuditor == user.getUsername() || helperFunctions.isAuthorizedToMakeChange(currentAuditor)) {
             CartItem newCartItem = new CartItem();
             newCartItem.setCart(newCart);
             newCartItem.setProduct(dbproduct);
@@ -83,10 +79,6 @@ public class CartServiceImpl
                     .add(newCartItem);
 
             return cartrepos.save(newCart);
-        } else {
-            throw new EntityNotFoundException("This user is not authorized to make change");
-        }
-
     }
 
     @Transactional
@@ -97,16 +89,21 @@ public class CartServiceImpl
                 .orElseThrow(() -> new ResourceNotFoundException("Cart Id " + cart.getCartid() + " not found"));
         Product updateProduct = productrepos.findById(product.getProductid())
                 .orElseThrow(() -> new ResourceNotFoundException("Product id " + product.getProductid() + " not found"));
+        String cartOwner = userrepos.findById(cart.getUser().getUserid())
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("User %s does not exist", cart.getUser().getUserid())))
+                .getUsername();
+        String currentAuditor = userrepos.findByUsername(helperFunctions.getCurrentAuditor()).getUsername();
 
-        if (cartrepos.checkCartItems(updateCart.getCartid(), updateProduct.getProductid())
-                .getCount() > 0) {
-            cartrepos.updateCartItemsQuantity(userAuditing.getCurrentAuditor()
-                    .get(), updateCart.getCartid(), updateProduct.getProductid(), 1);
+        if(cart.getUser().getUsername().equals(currentAuditor) || helperFunctions.isAuthorizedToMakeChange(currentAuditor)) {
+            if (cartrepos.checkCartItems(updateCart.getCartid(), updateProduct.getProductid())
+                    .getCount() > 0) {
+                cartrepos.updateCartItemsQuantity(cartOwner, updateCart.getCartid(), updateProduct.getProductid(), 1);
+            } else {
+                cartrepos.addCartItems(cart.getUser().getUsername(), updateCart.getCartid(), updateProduct.getProductid());
+            }
         } else {
-            cartrepos.addCartItems(userAuditing.getCurrentAuditor()
-                    .get(), updateCart.getCartid(), updateProduct.getProductid());
+            throw new ResourceNotFoundException("This user is not authorized to make change");
         }
-
         return cartrepos.save(updateCart);
     }
 
@@ -114,17 +111,21 @@ public class CartServiceImpl
     @Override
     public void delete(Cart cart,
                        Product product) {
+        System.out.println(cart.getUser());
+
         Cart updateCart = cartrepos.findById(cart.getCartid())
                 .orElseThrow(() -> new ResourceNotFoundException("Cart Id " + cart.getCartid() + " not found"));
         Product updateProduct = productrepos.findById(product.getProductid())
                 .orElseThrow(() -> new ResourceNotFoundException("Product id " + product.getProductid() + " not found"));
-        String currentAuditor = userAuditing.getCurrentAuditor()
-                .orElseThrow(() -> new EntityNotFoundException(String.format("%s not found", userAuditing.getCurrentAuditor())));
+        String cartOwner = userrepos.findById(cart.getUser().getUserid())
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("User %s does not exist", cart.getUser().getUserid())))
+                .getUsername();
+        String currentAuditor = userrepos.findByUsername(helperFunctions.getCurrentAuditor()).getUsername();
 
         if (cartrepos.checkCartItems(updateCart.getCartid(), updateProduct.getProductid())
                 .getCount() > 0) {
 
-            if( currentAuditor == cart.getUser().getUsername() || helperFunctions.isAuthorizedToMakeChange(currentAuditor) ) {
+            if(cartOwner.equals(currentAuditor) || helperFunctions.isAuthorizedToMakeChange(currentAuditor)) {
                 cartrepos.updateCartItemsQuantity(updateCart.getUser().getUsername(),
                         updateCart.getCartid(), updateProduct.getProductid(), -1);
                 cartrepos.removeCartItemsQuantityZero();

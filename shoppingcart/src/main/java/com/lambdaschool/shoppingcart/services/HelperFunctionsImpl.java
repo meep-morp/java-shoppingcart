@@ -13,10 +13,19 @@ public class HelperFunctionsImpl implements HelperFunctions {
     public boolean isAuthorizedToMakeChange(String username) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (username.equalsIgnoreCase(authentication.getName().toLowerCase()) || authentication.getAuthorities()
-                .contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) return true;
-        else {
-            throw new EntityNotFoundException(String.format("%s not authorized to make changes.", authentication.getName()));
+        return username.equalsIgnoreCase(authentication.getName().toLowerCase()) || authentication.getAuthorities()
+                .contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
+    }
+
+    public String getCurrentAuditor() {
+        String uname;
+        Authentication authUser = SecurityContextHolder.getContext().getAuthentication();
+        if (authUser != null){
+            uname = authUser.getName();
+        } else {
+            uname = "SYSTEM";
         }
+
+        return uname;
     }
 }

@@ -60,4 +60,10 @@ public class UserController {
         userService.delete(userId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping(value = "/myinfo", produces = "application/json")
+    public ResponseEntity<?> getMyInfo() {
+        User user = userService.getCurrentUserInfo();
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 }

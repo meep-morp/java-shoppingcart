@@ -50,6 +50,7 @@ public class CartController {
     public ResponseEntity<?> updateCart(@PathVariable long cartid,
                                         @PathVariable long productid) {
         Cart dataCart = new Cart();
+        dataCart.setUser(cartService.findCartById(cartid).getUser());
         dataCart.setCartid(cartid);
 
         Product dataProduct = new Product();
@@ -63,6 +64,7 @@ public class CartController {
     public ResponseEntity<?> deleteFromCart(@PathVariable long cartid,
                                             @PathVariable long productid) {
         Cart dataCart = new Cart();
+        dataCart.setUser(cartService.findCartById(cartid).getUser());
         dataCart.setCartid(cartid);
 
         Product dataProduct = new Product();
