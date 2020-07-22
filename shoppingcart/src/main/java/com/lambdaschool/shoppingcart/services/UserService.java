@@ -26,6 +26,7 @@ public interface UserService {
     User findByUserName(String name);
 
     User getCurrentUserInfo();
+
     /**
      * Deletes the user record from the database based off of the provided primary key
      *

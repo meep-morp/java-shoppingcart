@@ -5,8 +5,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
-
 @Service(value = "helpFunctions")
 public class HelperFunctionsImpl implements HelperFunctions {
     @Override
@@ -20,7 +18,7 @@ public class HelperFunctionsImpl implements HelperFunctions {
     public String getCurrentAuditor() {
         String uname;
         Authentication authUser = SecurityContextHolder.getContext().getAuthentication();
-        if (authUser != null){
+        if (authUser != null) {
             uname = authUser.getName();
         } else {
             uname = "SYSTEM";

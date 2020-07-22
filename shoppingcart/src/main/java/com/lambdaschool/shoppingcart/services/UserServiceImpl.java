@@ -53,7 +53,7 @@ public class UserServiceImpl
 
     @Override
     public User getCurrentUserInfo() {
-       return userrepos.findByUsername(helperFunctions.getCurrentAuditor());
+        return userrepos.findByUsername(helperFunctions.getCurrentAuditor());
     }
 
     @Transactional

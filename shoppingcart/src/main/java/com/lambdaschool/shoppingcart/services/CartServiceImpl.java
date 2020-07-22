@@ -70,15 +70,15 @@ public class CartServiceImpl
         Product dbproduct = productrepos.findById(product.getProductid())
                 .orElseThrow(() -> new ResourceNotFoundException("Product id " + product.getProductid() + " not found"));
 
-            CartItem newCartItem = new CartItem();
-            newCartItem.setCart(newCart);
-            newCartItem.setProduct(dbproduct);
-            newCartItem.setComments("");
-            newCartItem.setQuantity(1);
-            newCart.getProducts()
-                    .add(newCartItem);
+        CartItem newCartItem = new CartItem();
+        newCartItem.setCart(newCart);
+        newCartItem.setProduct(dbproduct);
+        newCartItem.setComments("");
+        newCartItem.setQuantity(1);
+        newCart.getProducts()
+                .add(newCartItem);
 
-            return cartrepos.save(newCart);
+        return cartrepos.save(newCart);
     }
 
     @Transactional
@@ -94,7 +94,7 @@ public class CartServiceImpl
                 .getUsername();
         String currentAuditor = userrepos.findByUsername(helperFunctions.getCurrentAuditor()).getUsername();
 
-        if(cart.getUser().getUsername().equals(currentAuditor) || helperFunctions.isAuthorizedToMakeChange(currentAuditor)) {
+        if (cart.getUser().getUsername().equals(currentAuditor) || helperFunctions.isAuthorizedToMakeChange(currentAuditor)) {
             if (cartrepos.checkCartItems(updateCart.getCartid(), updateProduct.getProductid())
                     .getCount() > 0) {
                 cartrepos.updateCartItemsQuantity(cartOwner, updateCart.getCartid(), updateProduct.getProductid(), 1);
@@ -125,7 +125,7 @@ public class CartServiceImpl
         if (cartrepos.checkCartItems(updateCart.getCartid(), updateProduct.getProductid())
                 .getCount() > 0) {
 
-            if(cartOwner.equals(currentAuditor) || helperFunctions.isAuthorizedToMakeChange(currentAuditor)) {
+            if (cartOwner.equals(currentAuditor) || helperFunctions.isAuthorizedToMakeChange(currentAuditor)) {
                 cartrepos.updateCartItemsQuantity(updateCart.getUser().getUsername(),
                         updateCart.getCartid(), updateProduct.getProductid(), -1);
                 cartrepos.removeCartItemsQuantityZero();
